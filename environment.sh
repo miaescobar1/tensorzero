@@ -1,2 +1,2 @@
-export TENSORZERO_CLICKHOUSE_URL="http://chuser:chpassword@localhost:8123/tensorzero"
+export TENSORZERO_CLICKHOUSE_URL=""
 export LLAMA_API_KEY=""
