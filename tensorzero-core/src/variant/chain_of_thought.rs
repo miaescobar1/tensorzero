@@ -29,7 +29,8 @@ pub struct ChainOfThoughtConfig {
     pub inner: ChatCompletionConfig,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Clone, Debug, Deserialize, Serialize, ts_rs::TS)]
+#[ts(export)]
 #[serde(deny_unknown_fields)]
 pub struct UninitializedChainOfThoughtConfig {
     #[serde(flatten)]
@@ -50,7 +51,7 @@ impl Variant for ChainOfThoughtConfig {
         input: &ResolvedInput,
         models: &'request InferenceModels<'a>,
         function: &'a FunctionConfig,
-        inference_config: &'request InferenceConfig<'static, 'request>,
+        inference_config: &'request InferenceConfig<'request>,
         clients: &'request InferenceClients<'request>,
         inference_params: InferenceParams,
     ) -> Result<InferenceResult, Error> {
@@ -116,7 +117,7 @@ impl Variant for ChainOfThoughtConfig {
         _input: &ResolvedInput,
         _models: &'request InferenceModels<'_>,
         _function: &FunctionConfig,
-        _inference_config: &'request InferenceConfig<'static, 'request>,
+        _inference_config: &'request InferenceConfig<'request>,
         _clients: &'request InferenceClients<'request>,
         _inference_params: InferenceParams,
     ) -> Result<(InferenceResultStream, ModelUsedInfo), Error> {
@@ -166,7 +167,7 @@ impl Variant for ChainOfThoughtConfig {
         _input: &[ResolvedInput],
         _models: &'a InferenceModels<'a>,
         _function: &'a FunctionConfig,
-        _inference_configs: &'a [InferenceConfig<'a, 'a>],
+        _inference_configs: &'a [InferenceConfig<'a>],
         _clients: &'a InferenceClients<'a>,
         _inference_params: Vec<InferenceParams>,
     ) -> Result<StartBatchModelInferenceWithMetadata<'a>, Error> {
